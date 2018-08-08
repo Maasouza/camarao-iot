@@ -57,7 +57,7 @@ class Tank extends Component {
     }
 
     toggleModal = () => {
-        if (!this.state.isModalOpen) {
+        if (!this.state.isModalOpen && (this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )) {
             this.Auth.fetch( '/buoys/free' , {
                 method: 'GET',
             })
@@ -73,6 +73,7 @@ class Tank extends Component {
 
                 this.setState({ free_buoys: free })
             })
+
             this.Auth.fetch( '/productions' , {
                 method: 'GET',
             })
@@ -138,8 +139,8 @@ class Tank extends Component {
             const waterLevel = parseFloat(this.state.tank_waterLevel)
             const salinity = parseFloat(this.state.tank_salinity)
             const turbidity = parseFloat(this.state.tank_turbidity)
-            const buoy = parseInt(this.state.buoy_associated)
-            const production = parseInt(this.state.prod_associated)
+            const buoy = parseInt(this.state.buoy_associated, 10)
+            const production = parseInt(this.state.prod_associated, 10)
             const qtyShrimps = parseFloat(this.state.tank_qtyShrimps)
             const capacity = parseFloat(this.state.tank_capacity)
             var sendData = {}
@@ -191,6 +192,7 @@ class Tank extends Component {
     }
 
     render() {
+
         const {tank_data, data, free_buoys, prods, buoy_associated, prod_associated} = this.state;
         const curTemp = data.temperature.length === 0 ? 0 : data.temperature[data.temperature.length-1][1];
         const curWaterLevel = data.waterlevel.length === 0 ? 0 : data.waterlevel[data.waterlevel.length-1][1];
@@ -252,9 +254,12 @@ class Tank extends Component {
                                         </tr>
                                     </tbody>
                                 </table>
-
-                                <button onClick={this.toggleModal.bind(this)}> Editar tanque</button>
-                                <button onClick={this.handleDelete.bind(this, this.url, tank_data.name)}> Remover tanque</button>
+                                {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name || this.user.role === UserRole.biologist.name )&&(
+                                    <button onClick={this.toggleModal.bind(this)}> Editar tanque</button>
+                                )}
+                                {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )&&(
+                                    <button onClick={this.handleDelete.bind(this, this.url, tank_data.name)}> Remover tanque</button>
+                                )}
                             </div>
                         </div>
                         {tank_data.buoy &&(
@@ -265,7 +270,9 @@ class Tank extends Component {
                                     <div className='Card-msg'>
                                         {tank_data.buoy}
                                     </div>
-                                    <button onClick={this.handleBuoyRemove.bind(this)}> Desassociar Bóia </button>
+                                    {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )&&(
+                                      <button onClick={this.handleBuoyRemove.bind(this)}> Desassociar Bóia </button>
+                                    )}
                                 </div>
                         )
                         }
@@ -282,7 +289,9 @@ class Tank extends Component {
                                     <div className='Card-msg'>
                                         {tank_data.production}
                                     </div>
-                                    <button onClick={this.handleProductionRemove.bind(this)}> Desassociar Produção </button>
+                                    {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )&&(
+                                      <button onClick={this.handleProductionRemove.bind(this)}> Desassociar Produção </button>
+                                    )}
                                 </div>
                         )
                         }
@@ -401,14 +410,14 @@ class Tank extends Component {
                                   <TextField type='number' label="Nível d'Água Ideal" name="tank_waterLevel" defaultValue={tank_data.waterLevel} onChange={this.handleChange} />
                                   <TextField type='number' label="Salinidade Ideal" name="tank_salinity" defaultValue={tank_data.salinity} onChange={this.handleChange} />
                                   <TextField type='number' label="Turbidez Ideal" name="tank_turbidity" defaultValue={tank_data.turbidity} onChange={this.handleChange} />
-                                  <TextField className='User-select' label="Bóia associada" select value={buoy_associated || 0} name="buoy_associated" onChange={this.handleChange}>
+                                  <TextField disabled={!(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )}className='User-select' label="Bóia associada" select value={buoy_associated || 0} name="buoy_associated" onChange={this.handleChange}>
                                       {free_buoys.map( buoys => (
                                           <option key={buoys.id} value={buoys.id}>
                                               {buoys.name}
                                           </option>
                                       ))}
                                   </TextField>
-                                  <TextField className='User-select' label="Produção associada" select value={prod_associated || 0} name="prod_associated" onChange={this.handleChange}>
+                                  <TextField disabled={!(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )} className='User-select' label="Produção associada" select value={prod_associated || 0} name="prod_associated" onChange={this.handleChange}>
                                       {prods.map( prod => (
                                           <option key={prod.id} value={prod.id}>
                                               {prod.name}
@@ -454,7 +463,7 @@ class Tank extends Component {
             var {buoy_associated, data} = this.state
             var info = msg.asObject()
             var curTime = new Date()
-            if(info.buoy_id == buoy_associated){
+            if(info.buoy_id === buoy_associated){
               data.temperature.push([curTime, info.temperature])
               data.salinity.push([curTime, info.salinity])
               data.turbidity.push([curTime, Math.max(info['red'], info['green'], info['blue'])])

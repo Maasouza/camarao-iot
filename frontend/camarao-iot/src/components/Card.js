@@ -11,7 +11,7 @@ class Card extends Component{
     }
 
     handleClick(path){
-        if(path !='')
+        if(path !=='')
             window.location = path;
     }
 

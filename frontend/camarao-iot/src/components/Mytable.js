@@ -22,11 +22,12 @@ class Mytable extends Component {
         this.user = this.Auth.getUser()
         this.state = {
             isModalOpen: false,
-            selected_item: null
+            selected_item: null,
+            view: null
         }
     };
 
-    toggleModal = (id) => {
+    toggleModal = (id, view) => {
         if (!this.state.isModalOpen) {
             this.Auth.fetch( this.props.url + '/' + id , {
                 method: 'GET',
@@ -40,14 +41,17 @@ class Mytable extends Component {
                   prod_estimatedAmount: response.estimatedAmount,
                   prod_shrimpClass: response.shrimpClass,
                   prod_startDate: response.startDate,
-                  prod_endDate: response.endDate
+                  prod_endDate: response.endDate,
+                  isModalOpen: !this.state.isModalOpen,
+                  view: view
                 })
             })
+        }else{
+          this.setState({
+            isModalOpen: !this.state.isModalOpen,
+            view: view
+          });
         }
-
-        this.setState({
-            isModalOpen: !this.state.isModalOpen
-        });
     }
 
     handleDelete(id,name){
@@ -75,17 +79,29 @@ class Mytable extends Component {
             const shrimpClass = this.state.prod_shrimpClass
             const startDate = this.state.prod_startDate
             const endDate = this.state.prod_endDate
+            var sendData = {}
 
-            const sendData = {
-                name: name,
-                client: client,
-                requestedAmount: requestedAmount,
-                estimatedAmount: estimatedAmount,
-                shrimpClass: shrimpClass,
-                startDate: startDate,
-                endDate: endDate
+            if(name !== null && name !== undefined){
+              sendData.name = name
             }
-            console.log(sendData);
+            if(client !== null && client !== undefined){
+              sendData.client = client
+            }
+            if(requestedAmount !== null && requestedAmount !== undefined){
+              sendData.requestedAmount = requestedAmount
+            }
+            if(estimatedAmount !== null && estimatedAmount !== undefined){
+              sendData.estimatedAmount = estimatedAmount
+            }
+            if(shrimpClass !== null && shrimpClass !== undefined){
+              sendData.shrimpClass = shrimpClass
+            }
+            if(startDate !== null && startDate !== undefined){
+              sendData.startDate = startDate
+            }
+            if(endDate !== null && endDate !== undefined){
+              sendData.endDate = endDate
+            }
             this.Auth.fetch( this.props.url + '/' + this.state.selected_item.id , {
                 method: 'PUT',
                 body: JSON.stringify(sendData)
@@ -139,11 +155,11 @@ class Mytable extends Component {
                                 {!this.props.onlyView && (
                                 <TableCell key = {this.props.keys.length} style={{textAlign: 'center'}}>
                                     {this.props.showEye && (
-                                        <span title="Visualizar"className='DeleteButton' onClick={this.handleClick.bind(this,this.props.url+'/'+row.id)}>
+                                        <span title="Visualizar"className='DeleteButton' onClick={this.toggleModal.bind(this,row.id,true)}>
                                             <SvgIcon className="Nav-icon"size={20} icon={ic_remove_red_eye}/>
                                         </span>
                                     )}
-                                    <span title="Editar" className='DeleteButton' onClick={this.toggleModal.bind(this,row.id)}>
+                                    <span title="Editar" className='DeleteButton' onClick={this.toggleModal.bind(this,row.id,false)}>
                                         <SvgIcon className="Nav-icon"size={20} icon={ic_mode_edit}/>
                                     </span>
                                     <span title="Excluir" className='DeleteButton' onClick={this.handleDelete.bind(this,row.id,row.name)}>
@@ -160,17 +176,19 @@ class Mytable extends Component {
 
                 {selected_item&& (<Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
                         <fieldset>
-                            <legend>Editar Produção</legend>
+                            <legend>{this.state.view?(" Produção "+selected_item.name+" "):(" Editar Produção "+selected_item.name+" ")}</legend>
                             <form>
-                                <TextField label="Nome" name="prod_name" defaultValue={selected_item.name} onChange={this.handleChange} />
-                                <TextField label="Cliente" disabled name="prod_client" defaultValue={selected_item.client} onChange={this.handleChange} />
-                                <TextField label="Classe do Camarão" name="prod_shrimpClass" defaultValue={selected_item.shrimpClass} onChange={this.handleChange} />
-                                <TextField type='number'label="Quantidade de camarão requerida (Kg)" name="prod_requestedAmount" defaultValue={selected_item.requestedAmount} onChange={this.handleChange} />
-                                <TextField type='number'label="Quantidade de camarão atual estimada (Kg)" name="prod_estimatedAmount" defaultValue={selected_item.estimatedAmount} onChange={this.handleChange} />
-                                <TextField type='date' defaultValue={selected_item.startDate} label="Data de início" name="prod_startDate" defaultValue={selected_item.startDate} onChange={this.handleChange} />
-                                <TextField type='date' defaultValue={selected_item.endDate} label="Data de despesca" name="prod_endDate" defaultValue={selected_item.endDate} onChange={this.handleChange} />
-                                <button onClick={this.handleUpdate.bind(this)}>Confirmar</button>
-                                <button onClick={this.toggleModal}>Cancelar</button>
+                                <TextField disabled={this.state.view} label="Nome" name="prod_name" defaultValue={selected_item.name} onChange={this.handleChange} />
+                                <TextField disabled={this.state.view} label="Cliente" disabled name="prod_client" defaultValue={selected_item.client} onChange={this.handleChange} />
+                                <TextField disabled={this.state.view} label="Classe do Camarão" name="prod_shrimpClass" defaultValue={selected_item.shrimpClass} onChange={this.handleChange} />
+                                <TextField disabled={this.state.view} type='number'label="Quantidade de camarão requerida (Kg)" name="prod_requestedAmount" defaultValue={selected_item.requestedAmount} onChange={this.handleChange} />
+                                <TextField disabled={this.state.view} type='number'label="Quantidade de camarão atual estimada (Kg)" name="prod_estimatedAmount" defaultValue={selected_item.estimatedAmount} onChange={this.handleChange} />
+                                <TextField disabled={this.state.view} type='date' label="Data de início" name="prod_startDate" defaultValue={selected_item.startDate} onChange={this.handleChange} />
+                                <TextField disabled={this.state.view} type='date' label="Data de despesca" name="prod_endDate" defaultValue={selected_item.endDate} onChange={this.handleChange} />
+                                {!this.state.view && (
+                                  <button onClick={this.handleUpdate.bind(this)}>Confirmar</button>
+                                )}
+                                <button onClick={this.toggleModal}>{this.state.view?("Ok"):("Cancelar")}</button>
                             </form>
                         </fieldset>
                     </Modal>)}

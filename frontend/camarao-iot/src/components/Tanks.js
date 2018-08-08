@@ -42,15 +42,15 @@ class Tanks extends Component {
         e.preventDefault();
         const name = this.state.tank_name
         const capacity = parseFloat(this.state.tank_capacity)
-        const buoy = parseInt(this.state.buoy_associated)
+        const buoy = parseInt(this.state.buoy_associated,10)
         const sendData = {
             name: name,
             capacity: capacity
         }
-        if(buoy != 0){
+        if(buoy !== 0){
             sendData.buoy = buoy
         }
-        
+
         this.Auth.fetch( this.url , {
             method: 'POST',
             body: JSON.stringify(sendData)
