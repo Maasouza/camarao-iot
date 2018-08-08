@@ -1,0 +1,4 @@
+id,name,email,password,username,active,confirmed_at,role
+1,Maria,marimar@gmail.com,ma123,maria,1,2017-08-08,2
+2,Form,fofo@gmail.com,minhasenha,Form,0,2017-08-06,4
+3,Susie,vr@gmail.com,vrar,Susie,1,2018-01-26,1

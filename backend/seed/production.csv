@@ -1,0 +1,5 @@
+id,requestedAmount,estimatedAmount,startDate,endDate,shrimpClass,name,client
+1,5.6,5.44,2018-07-19,2018-12-29,A,prod1,GHT
+2,566.52,570.52,2018-08-22,2019-02-20,B,prod2,GHT
+3,45.85,40.02,2018-05-02,2018-12-31,C,prod3,GHT
+4,100.20,200.35,2018-01-08,2018-07-08,A,prod4,GHT
