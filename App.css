@@ -1,0 +1,141 @@
+body{
+  margin: 0px;
+}
+
+.App {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/background.png") ;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
+}
+/* CSS FOR LOGIN AND PASSWORD FORMS */
+.Div-default{
+  width: 500px;
+  height: 600px;
+  border-radius: 20px;
+  background: #fff;
+  padding-top: 50px;
+  box-shadow: 0px 0px 29px 8px rgba(250,169,144,1);
+  
+}
+
+.Div-default input[type=text]{
+  width: 360px;
+  height: 35px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid grey;
+  color: #43425d;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.Div-default input[type=email]{
+  width: 360px;
+  height: 35px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid grey;
+  color: #43425d;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.Div-default input[type=password]{
+  width: 360px;
+  height: 35px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid grey;
+  color: #333333;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.Div-default input[type=submit]{
+  width: 170px;
+  height: 50px;
+  background: #43425d;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  cursor: pointer;
+  color: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 6px;
+  margin-top: 40px;
+}
+
+.Div-default input[type=submit]:hover{
+  opacity: 0.8;
+}
+
+.Div-default input[type=submit]:active{
+  opacity: 0.6;
+}
+
+.Div-default input[type=text]:focus{
+  outline: none;
+}
+
+.Div-default input[type=password]:focus{
+  outline: none;
+}
+
+.Div-default input[type=submit]:focus{
+  outline: none;
+}
+
+/* CSS FOR LOGO COMPONENT*/
+.Logo{
+  font-family: 'Source Sans Pro', sans-serif;  
+}
+
+.Logo .Logo-name{
+  color:#43425d;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-size: 32px;  
+  letter-spacing: 3px
+}
+
+.Logo .Logo-phrase{
+  font-family: 'Source Sans Pro', sans-serif;  
+  color:#b4b5ba;
+}
+
+::-webkit-input-placeholder{
+  color: rgba(59, 56, 114, 0.4);
+}
+
+::-moz-input-placeholder{
+  color: rgba(59, 56, 114, 0.4);
+}
+
+a{
+  text-decoration: none;
+  color:#43425d;
+}
+
+a:visited{
+  color:#43425d;
+}
