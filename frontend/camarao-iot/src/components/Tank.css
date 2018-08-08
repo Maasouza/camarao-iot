@@ -1,0 +1,108 @@
+.Thermometer, .TankInfos{
+  position: relative;
+  width: 240px;
+  height: 320px;
+  background: #FFF;
+  margin-left:20px;
+  margin-top:20px;
+  float: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  box-shadow: 0 0 10px 2px #777;
+  border-radius: 8px;
+  z-index: 0;
+
+}
+
+.Thermometer > div {
+  margin:20px auto;
+}
+
+.TitleBar{
+  position: relative;
+  width: 100%;
+  height: 30px;
+  padding-top:10px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.spanTitle {
+  font-size: 24px;
+}
+.TankName{
+  position: relative;
+  float: left;
+  left:20px;
+  font-size: 24px;
+
+}
+
+.TankId{
+  font-size: 24px;
+  position: relative;
+  float: right;
+  right:20px;
+}
+
+.thermometer .thermometer__bg-color {
+  position: absolute;
+  top: initial;
+  right: initial;
+  bottom: 0;
+  left: initial;
+  width: 100%;
+  background:linear-gradient(to top,#d35454 25%,#ffe284 40%, #2196F3 50%,#ffe284 60%,#d35454 75%);  }
+
+  .TankInfos{
+    width: 500px;
+  }
+
+  .conf-container > table {
+    width: 100%;
+    margin-top:20px;
+    margin-bottom:20px;
+  }
+
+  .conf-container > table > tbody > tr >td{
+    border-bottom:solid 1px #ccc;
+    padding: 5px;
+
+  }
+
+
+  .conf-container > span{
+    padding: 30px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .Chart-Temperature{
+    position: relative;
+    width: calc(100% - 300px);
+    background: #FFF;
+    margin-left:20px;
+    margin-top:20px;
+    float: left;
+    font-family: 'Source Sans Pro', sans-serif;
+    box-shadow: 0 0 10px 2px #777;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    padding-top: 20px;
+
+  }
+
+  button{
+    width: 150px;
+    height: 50px;
+    background: #43425d;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 6px;
+    text-align-last: center;
+    margin-top: 40px;
+
+  }

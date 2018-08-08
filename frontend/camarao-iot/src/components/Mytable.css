@@ -1,0 +1,36 @@
+.DeleteButton {
+    cursor: pointer;
+}
+
+.Table {
+    position: absolute;
+    top:50px;
+    left:10px;
+    width: calc(100vw - 320px);
+    background: #FFF;
+}
+
+.Table-name{
+    margin-left:20px;
+    margin-top:20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #43425d;
+    float:left;    
+    font-size: 32px;
+}
+
+.Table-new{
+    margin-right:20px;
+    margin-top:20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #43425d;
+    float:right;
+    cursor: pointer;    
+    font-size: 32px;
+}
+
+.Table-header{
+    font-size: 30px;
+    color: #43425d;
+}
+

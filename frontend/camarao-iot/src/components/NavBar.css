@@ -1,0 +1,72 @@
+
+body {
+    margin:0;
+    cursor:default;
+}
+
+.Navbar {
+    height: 40px; /* Full-height: remove this if you want "auto" height */
+    width:  calc(100vw - 300px) ; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    top: 0; /* Stay at the top */
+    left: 300;
+    background-color: rgba(250, 242, 242, 1); /* Black */
+    z-index: 8;
+    
+}
+
+.Dropdown {
+  float: right;
+  overflow: hidden;
+  z-index: 2;
+  
+}
+
+.Dropdown .Btn {
+  font-family: 'Source Sans Pro', sans-serif;
+  float: right;
+  padding: 11px;
+  margin-right: 20px;
+  color: #43425d;
+  cursor: pointer;
+  font-weight: lighter;
+  z-index: 2;
+  
+}
+
+.Dropdown-content {
+  transition:0.5s;
+  display: none;
+  cursor: pointer;
+  margin-top:40px;
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color: rgba(250, 242, 242, 1); /* Black */
+  min-width: 10px;
+  color: #43425d;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+
+.Dropdown-content span {
+  float: none;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  z-index: 2;  
+}
+
+
+.Dropdown:hover .Dropdown-content {
+  transition: 0.5s;
+  display: block;
+}
+
+.Dropdown:hover .Dropdown-content:hover {
+  display: block;
+  transition: 0.5s;
+  background-color: rgb(255,165,154);
+  color: #43425d;
+  z-index: 2;
+  
+}

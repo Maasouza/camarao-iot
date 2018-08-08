@@ -1,0 +1,59 @@
+
+body {
+  margin:0;  
+}
+
+.Sidebar {  
+  font-family: 'Source Sans Pro', sans-serif;
+  height: 100vh; /* Full-height: remove this if you want "auto" height */
+  width: 300px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 10; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: rgb(250, 242, 242); /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  box-shadow: -5px 0px 20px 5px rgb(95, 94, 94);
+}
+
+/* The navigation menu links */
+.Sidebar span {
+  cursor: pointer;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #43425d;
+  background: rgb(229,229,229);
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  padding-left: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+
+}
+
+.Sidebar span.active {
+  background: rgb(200,200,200);
+  border-left: 8px solid rgb(211,110,98);
+  padding-left: 12px;
+}
+
+.Sidebar span:hover{
+  border-left: 8px solid rgb(211,110,98);
+  padding-left: 12px;
+}
+
+.Separator {
+  font-size: 14px;
+  color: #AAA;
+  margin: 10px 12px;
+  padding: 4px 12px 2px;
+}
+
+.Nav-icon {
+  margin-right:20px;
+  margin-left:10px;
+}

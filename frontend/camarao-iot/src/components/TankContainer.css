@@ -1,0 +1,105 @@
+.Tanque{
+  position: relative;
+  width: 250px;
+  height: 300px;
+  background: #FFF;
+  margin-left:20px;
+  margin-top:20px;
+  float: left;
+  font-family: 'Source Sans Pro', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 0 10px 2px #777;
+}
+
+.Tanque:hover{
+  box-shadow: 0 0 10px 2px #43425d;
+  transition: 0.5s;
+}
+
+.tankName {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  display: inline-block;
+}
+
+.Tanque > .ok, .warning, .danger, .noBuoy, .noProduction{
+  width: 100%;
+  height: 40px;
+  margin-bottom:40px;
+}
+
+.ok {
+  background: #8fb0de;
+  padding-top: 10px; 
+}
+
+.warning {
+  background: #ffe284;
+  padding-top: 10px; 
+
+}
+
+.danger {
+  background: #d35454;
+  padding-top: 10px;   
+}
+
+.noBuoy, .noProduction {
+  background: #ccc;
+  padding-top: 10px; 
+}
+
+.Buoys{
+  padding-top:5px; 
+  width: 80px;
+  height: 30px;
+  background: #333;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  border-radius:30px;
+}
+
+.Buoys-icon{
+  width: 24px;
+  height: 24px;
+  background:#FFF;
+  border-radius: 15px;
+
+}
+
+.Buoys > span{
+  margin-right: 12px;
+  color :#FFF;
+}
+
+.icon-container > table {
+  width: 100%;
+}
+
+
+.icon-container > span{
+  padding: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+
+
+.icon-ok{
+  color:#8fb0de;
+}
+
+.icon-warning{
+  color:#ffe284;
+}
+
+.icon-danger{
+  color:#d35454;
+}
+
+.icon-noBuoy, .icon-noProduction{
+  color:#888888;
+}
+

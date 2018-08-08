@@ -1,0 +1,40 @@
+.Card{
+    border-radius: 8px;
+    position: relative;
+    width: 240px;
+    height: 320px;
+    background: #FFF;
+    margin-left:20px;
+    margin-top:20px;
+    float: left;
+    font-family: 'Source Sans Pro', sans-serif;
+    box-shadow: 0 0 10px 2px #777;
+}
+
+.Card:hover{
+
+    box-shadow: 0 0 10px 2px #43425d;
+    cursor: pointer;
+}
+
+.Card-Title{
+    padding: 30px;
+    font-size: 24px;
+}
+
+.Card-msg{
+    position: relative;
+    color:#43425d;
+    margin: 20px auto;
+    line-height: 120px;
+    max-width: 150px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 150px;
+    border: solid 2px #cccccc;
+}
+
+.Card > button{
+  margin-top:-10px;
+}
+

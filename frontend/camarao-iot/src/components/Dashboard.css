@@ -1,0 +1,123 @@
+body{
+  margin: 0px;
+}
+
+.App {
+  text-align: center;
+  margin:0px;
+  padding:0px;
+}
+
+.Nav-bar {
+  background: #FFF;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  position: relative;
+  margin-top: 20px;
+  width: calc(100vw - 300px);
+  height: calc(100vh - 40px);
+  overflow: auto;
+  font-size: large;
+  background: #ccc;
+  color: #222;
+}
+
+.Page-container {
+  height: 100vh; /* Full-height: remove this if you want "auto" height */
+  width: 100% ;/* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 300px;
+  background-color: #fff; /* Black */
+  /*overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+input, .User-select {
+  width: 400px;
+  padding-top: 50px;
+  text-align-last: left;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+option {
+  direction: ltr;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+button {
+  width: 150px;
+  height: 25px;
+  margin: 25px;
+}
+
+.New-btn {
+  transition:0.5s;
+  cursor: pointer;
+  color : #43425d;
+  position: absolute;
+  width: auto;
+  height: auto;
+  top:100px;
+  left:calc(100vw - 400px);
+  z-index: 3;
+}
+
+.New-btn-tank {
+  position: absolute;
+  transition:0.5s;
+  color : #333;
+  width: auto;
+  height: auto;
+  bottom: 25px;
+  right: 25px;
+  z-index: 3;
+}
+.New-btn-tank > span{
+  cursor: pointer;
+}
+
+.New-btn:hover {
+  color : rgb(255,165,154);
+  transition: 0.5s;
+}
+
+.New-btn-tank > span:hover {
+  color : #43425d;
+  transition: 0.5s;
+
+}
+
+::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: transparent;
+}
+
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
