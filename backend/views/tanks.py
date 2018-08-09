@@ -89,7 +89,7 @@ def edit_tank(tank_id): # falta checagem de boia
             qty_tank = tank.qtyShrimps
             qty_total = qty_total + qty_tank
 
-        query = Production.update(qtyShrimps=qty_total).where(
+        query = Production.update(estimatedAmount=qty_total).where(
             Production.id == prod_id)
         query.execute()
 
