@@ -76,23 +76,6 @@ def edit_tank(tank_id): # falta checagem de boia
         query = WaterTank.update(turbidity=rcv['turbidity']).where(
             WaterTank.id == tank_id)
         query.execute()
-    if 'qtyShrimps' in rcv:
-        query = WaterTank.update(qtyShrimps=rcv['qtyShrimps']).where(
-            WaterTank.id == tank_id)
-        query.execute()
-
-        tank_now = WaterTank.select().where(WaterTank.id == tank_id)
-        prod_id = tank_now[0].production
-        tanks = get_tanks_associated_with_production(prod_id)
-        qty_total = 0
-        for tank in tanks:
-            qty_tank = tank.qtyShrimps
-            qty_total = qty_total + qty_tank
-
-        query = Production.update(estimatedAmount=qty_total).where(
-            Production.id == prod_id)
-        query.execute()
-
     if 'buoy' in rcv:
         buoy = Buoy.select().where(Buoy.id==rcv['buoy'])
         if buoy.exists():
@@ -104,7 +87,6 @@ def edit_tank(tank_id): # falta checagem de boia
                 query = WaterTank.update(buoy=None).where(
                     WaterTank.id == tank_id)
                 query.execute()
-            
     if 'production' in rcv:
         production = Production.select().where(Production.id==rcv['production'])
 
@@ -130,6 +112,22 @@ def edit_tank(tank_id): # falta checagem de boia
             query = WaterTank.update(feedingschedule=rcv['feedingschedule']).where(
                 WaterTank.id == tank_id)
             query.execute()
+    if 'qtyShrimps' in rcv:
+        query = WaterTank.update(qtyShrimps=rcv['qtyShrimps']).where(
+            WaterTank.id == tank_id)
+        query.execute()
+
+        tank_now = WaterTank.select().where(WaterTank.id == tank_id)
+        prod_id = tank_now[0].production
+        tanks = json.loads(get_tanks_associated_with_production(prod_id))
+        qty_total = 0
+        for tank in tanks:
+            qty_tank = tank['qtyShrimps']
+            qty_total = qty_total + qty_tank
+
+        query = Production.update(estimatedAmount=qty_total).where(
+            Production.id == prod_id)
+        query.execute()
     return Response('{}', status=200)
 
 @app.route('/tanks/buoy/<buoy_id>', methods=['GET'])
