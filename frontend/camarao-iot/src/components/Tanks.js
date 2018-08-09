@@ -141,6 +141,7 @@ class Tanks extends Component {
     }
 
     componentDidMount() {
+        console.log("Mount")
         var {client, register} = this.state;
         var info =  undefined;
 
@@ -152,10 +153,11 @@ class Tanks extends Component {
         })
         client.on('message', data => {
             info = data.asObject()
+            console.log("Recebe")
             const res = {
               turbidity: (Math.max(info['red'], info['green'], info['blue']) > 2500) ? 'Alta' : 'Baixa',
               temperature: info['temperature'],
-              waterlevel: info['water_level'] === '1' ? 'Normal': 'Baixo',
+              waterlevel: info['water_level'] === 1 ? 'Normal': 'Baixo',
               salinity: info['salinity']
             }
             register[info['buoy_id']] = res;

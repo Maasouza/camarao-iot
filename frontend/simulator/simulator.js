@@ -38,4 +38,4 @@ function pub(){
 }
 
 
-setInterval(pub, 1000)
+setInterval(pub, 2000)

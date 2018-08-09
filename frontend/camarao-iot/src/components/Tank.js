@@ -230,6 +230,8 @@ class Tank extends Component {
         for(var i=0; i < data.temperature.length;i++){
             defaultData.temperature.push([data.temperature[i][0],tank_data.temperature])
             defaultData.waterlevel.push([data.temperature[i][0],1])
+            defaultData.salinity.push([data.temperature[i][0],tank_data.salinity])
+
             alertDataH.temperature.push([data.temperature[i][0],tank_data.temperature*1.1])
             alertDataL.temperature.push([data.temperature[i][0],tank_data.temperature*0.9])
             riskDataH.temperature.push([data.temperature[i][0],tank_data.temperature*1.25])
