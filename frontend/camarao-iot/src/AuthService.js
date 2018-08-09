@@ -101,9 +101,12 @@ export default class AuthService {
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
             return response
         } else {
-            var error = new Error(response.statusText)
-            error.response = response
-            throw error
+            if(response.status == 401){
+              alert("Você será redirecionado para o login pois não tem autorização necessário para realizar esta ação")
+              localStorage.removeItem('access_token');
+              localStorage.removeItem('user');
+              window.location = '/login'
+            }
         }
     }
 }

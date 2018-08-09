@@ -138,7 +138,7 @@ class Mytable extends Component {
                                     <TableCell key={id}>{label}</TableCell>
                                 );
                             })}
-                            {!this.props.onlyView && (
+                            {(!this.props.onlyView || this.props.showEye) && (
                             <TableCell style={{textAlign: 'center'}} key = {this.props.labels.length}>Opções</TableCell>
                             )}
                         </TableRow>
@@ -152,22 +152,23 @@ class Mytable extends Component {
                                     <TableCell key={id} >{row[jsonKey]}</TableCell>
                                     )
                                 })}
-                                {!this.props.onlyView && (
                                 <TableCell key = {this.props.keys.length} style={{textAlign: 'center'}}>
                                     {this.props.showEye && (
                                         <span title="Visualizar"className='DeleteButton' onClick={this.toggleModal.bind(this,row.id,true)}>
                                             <SvgIcon className="Nav-icon"size={20} icon={ic_remove_red_eye}/>
                                         </span>
                                     )}
-                                    <span title="Editar" className='DeleteButton' onClick={this.toggleModal.bind(this,row.id,false)}>
-                                        <SvgIcon className="Nav-icon"size={20} icon={ic_mode_edit}/>
-                                    </span>
-                                    <span title="Excluir" className='DeleteButton' onClick={this.handleDelete.bind(this,row.id,row.name)}>
-                                        <SvgIcon className="Nav-icon"size={20} icon={ic_delete}/>
-                                    </span>
-
+                                    {(!this.props.onlyView && this.props.showEdit) && (
+                                      <span title="Editar" className='DeleteButton' onClick={this.toggleModal.bind(this,row.id,false)}>
+                                          <SvgIcon className="Nav-icon"size={20} icon={ic_mode_edit}/>
+                                      </span>
+                                    )}
+                                    {(!this.props.onlyView && this.props.showRemove) && (
+                                      <span title="Excluir" className='DeleteButton' onClick={this.handleDelete.bind(this,row.id,row.name)}>
+                                          <SvgIcon className="Nav-icon"size={20} icon={ic_delete}/>
+                                      </span>
+                                    )}
                                 </TableCell>
-                                )}
                             </TableRow>
                         )})}
                     </TableBody>
@@ -178,12 +179,12 @@ class Mytable extends Component {
                         <fieldset>
                             <legend>{this.state.view?(" Produção "+selected_item.name+" "):(" Editar Produção "+selected_item.name+" ")}</legend>
                             <form>
-                                <TextField disabled={this.state.view} label="Nome" name="prod_name" defaultValue={selected_item.name} onChange={this.handleChange} />
-                                <TextField disabled={this.state.view} label="Cliente" disabled name="prod_client" defaultValue={selected_item.client} onChange={this.handleChange} />
+                                <TextField disabled label="Nome" name="prod_name" defaultValue={selected_item.name} onChange={this.handleChange} />
+                                <TextField disabled label="Cliente" disabled name="prod_client" defaultValue={selected_item.client} onChange={this.handleChange} />
                                 <TextField disabled={this.state.view} label="Classe do Camarão" name="prod_shrimpClass" defaultValue={selected_item.shrimpClass} onChange={this.handleChange} />
                                 <TextField disabled={this.state.view} type='number'label="Quantidade de camarão requerida (Kg)" name="prod_requestedAmount" defaultValue={selected_item.requestedAmount} onChange={this.handleChange} />
-                                <TextField disabled={this.state.view} type='number'label="Quantidade de camarão atual estimada (Kg)" name="prod_estimatedAmount" defaultValue={selected_item.estimatedAmount} onChange={this.handleChange} />
-                                <TextField disabled={this.state.view} type='date' label="Data de início" name="prod_startDate" defaultValue={selected_item.startDate} onChange={this.handleChange} />
+                                <TextField disabled type='number'label="Quantidade de camarão atual estimada (Kg)" name="prod_estimatedAmount" defaultValue={selected_item.estimatedAmount} onChange={this.handleChange} />
+                                <TextField disabled type='date' label="Data de início" name="prod_startDate" defaultValue={selected_item.startDate} onChange={this.handleChange} />
                                 <TextField disabled={this.state.view} type='date' label="Data de despesca" name="prod_endDate" defaultValue={selected_item.endDate} onChange={this.handleChange} />
                                 {!this.state.view && (
                                   <button onClick={this.handleUpdate.bind(this)}>Confirmar</button>

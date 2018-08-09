@@ -30,7 +30,7 @@ class Employees extends Component {
       this.setState({
           isModalOpen: !this.state.isModalOpen
       });
-    } 
+    }
 
     handleCreate(e){
         e.preventDefault();
@@ -69,7 +69,7 @@ class Employees extends Component {
                     <Sidebar role={this.user.role} employees={'active'}/>
                     <Navbar user={this.user.username} />
                     <div className="App-intro">
-                        <Mytable tablename={'Funcionários'} onlyView={onlyView} url={this.url} labels={this.labels} keys={this.keys} data={data}/>
+                        <Mytable tablename={'Funcionários'} showRemove onlyView={onlyView} url={this.url} labels={this.labels} keys={this.keys} data={data}/>
                     </div>
                     { !onlyView && (
                     <span className="New-btn" onClick={this.toggleModal}><SvgIcon className="Nav-icon"size={50} icon={ic_add_circle}/></span>

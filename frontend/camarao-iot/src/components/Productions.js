@@ -74,7 +74,7 @@ class Productions extends Component {
                     <Sidebar role={this.user.role} productions={'active'}/>
                     <Navbar user={this.user.username} />
                     <div className="App-intro">
-                        <Mytable tablename={'Produções'} showEye onlyView={onlyView} url={this.url} labels={this.labels} keys={this.keys} data={data}/>
+                        <Mytable tablename={'Produções'} showEye showEdit showRemove onlyView={onlyView} url={this.url} labels={this.labels} keys={this.keys} data={data}/>
                     </div>
                     <span className="New-btn" onClick={this.toggleModal}><SvgIcon className="Nav-icon"size={50} icon={ic_add_circle}/></span>
                     <Modal show={this.state.isModalOpen} onClose={this.toggleModal}>

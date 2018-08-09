@@ -155,7 +155,7 @@ class Tanks extends Component {
             const res = {
               turbidity: (Math.max(info['red'], info['green'], info['blue']) > 2500) ? 'Alta' : 'Baixa',
               temperature: info['temperature'],
-              waterlevel: info['water_level'] === 1 ? 'Normal': 'Baixo',
+              waterlevel: info['water_level'] === '1' ? 'Normal': 'Baixo',
               salinity: info['salinity']
             }
             register[info['buoy_id']] = res;

@@ -63,7 +63,7 @@ class Buoys extends Component {
                     <Sidebar role={this.user.role} buoys={'active'}/>
                     <Navbar user={this.user.username} />
                     <div className="App-intro">
-                        <Mytable tablename={'Bóias'} url={this.url} labels={this.labels} keys={this.keys} data={data}/>
+                        <Mytable tablename={'Bóias'} showRemove url={this.url} labels={this.labels} keys={this.keys} data={data}/>
                     </div>
                     <span className="New-btn" onClick={this.toggleModal}><SvgIcon className="Nav-icon"size={50} icon={ic_add_circle}/></span>
                     <Modal show={this.state.isModalOpen} onClose={this.toggleModal}>

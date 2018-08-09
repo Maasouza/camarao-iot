@@ -57,7 +57,8 @@ class Tank extends Component {
     }
 
     toggleModal = () => {
-        if (!this.state.isModalOpen && (this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )) {
+        if (!this.state.isModalOpen ) {
+          if(this.user.role === UserRole.sysAdmin.name ){
             this.Auth.fetch( '/buoys/free' , {
                 method: 'GET',
             })
@@ -66,20 +67,22 @@ class Tank extends Component {
                 if (this.state.buoy_associated !== 0 && this.state.buoy_associated !== null) {
                     const curBuoy = {
                         id: this.state.buoy_associated,
-                        name: 'Bóia Atual'
+                        name: 'Boia Atual'
                     }
                     free.push(curBuoy)
                 }
 
                 this.setState({ free_buoys: free })
             })
-
+          }
+          if((this.user.role === UserRole.biologist.name) || (this.user.role === UserRole.manager.name) || (this.user.role === UserRole.sysAdmin.name )){
             this.Auth.fetch( '/productions' , {
                 method: 'GET',
             })
             .then(response => {
                 this.setState({ prods: response })
             })
+          }
         }
 
         this.setState({
@@ -196,33 +199,46 @@ class Tank extends Component {
         const {tank_data, data, free_buoys, prods, buoy_associated, prod_associated} = this.state;
         const curTemp = data.temperature.length === 0 ? 0 : data.temperature[data.temperature.length-1][1];
         const curWaterLevel = data.waterlevel.length === 0 ? 0 : data.waterlevel[data.waterlevel.length-1][1];
+        const curSalinity = data.salinity.length === 0 ? 0 : data.salinity[data.salinity.length-1][1];
+        const curTurbidity = data.turbidity.length === 0 ? 'Baixo' : 'Alta'
         const curWaterLevelLabel = curWaterLevel === 0 ? 'Baixo' : 'Normal'
         const tempMax = tank_data.temperature === undefined ? 50 : tank_data.temperature*2
+        const salinityMax = tank_data.salinity === undefined ? 50 : tank_data.salinity*2
 
         var defaultData = {
             temperature:[],
-            waterlevel:[]
+            waterlevel:[],
+            salinity:[]
         }
         var alertDataH = {
-            temperature:[]
+            temperature:[],
+            salinity:[]
         }
         var riskDataH = {
-            temperature:[]
+            temperature:[],
+            salinity:[]
         }
         var alertDataL = {
-            temperature:[]
+            temperature:[],
+            salinity:[]
         }
         var riskDataL = {
-            temperature:[]
+            temperature:[],
+            salinity:[]
         }
 
         for(var i=0; i < data.temperature.length;i++){
             defaultData.temperature.push([data.temperature[i][0],tank_data.temperature])
             defaultData.waterlevel.push([data.temperature[i][0],1])
             alertDataH.temperature.push([data.temperature[i][0],tank_data.temperature*1.1])
-            riskDataH.temperature.push([data.temperature[i][0],tank_data.temperature*1.25])
             alertDataL.temperature.push([data.temperature[i][0],tank_data.temperature*0.9])
+            riskDataH.temperature.push([data.temperature[i][0],tank_data.temperature*1.25])
             riskDataL.temperature.push([data.temperature[i][0],tank_data.temperature*0.75])
+
+            alertDataH.salinity.push([data.salinity[i][0],tank_data.salinity*1.1])
+            alertDataL.salinity.push([data.salinity[i][0],tank_data.salinity*0.9])
+            riskDataH.salinity.push([data.salinity[i][0],tank_data.salinity*1.25])
+            riskDataL.salinity.push([data.salinity[i][0],tank_data.salinity*0.75])
         }
         return(
             <div className='App-main'>
@@ -257,7 +273,7 @@ class Tank extends Component {
                                 {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name || this.user.role === UserRole.biologist.name )&&(
                                     <button onClick={this.toggleModal.bind(this)}> Editar tanque</button>
                                 )}
-                                {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )&&(
+                                {(this.user.role === UserRole.sysAdmin.name  )&&(
                                     <button onClick={this.handleDelete.bind(this, this.url, tank_data.name)}> Remover tanque</button>
                                 )}
                             </div>
@@ -265,19 +281,19 @@ class Tank extends Component {
                         {tank_data.buoy &&(
                                 <div className='Card'>
                                     <div className='Card-Title'>
-                                        Bóia
+                                        Boia
                                     </div>
                                     <div className='Card-msg'>
                                         {tank_data.buoy}
                                     </div>
-                                    {(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )&&(
-                                      <button onClick={this.handleBuoyRemove.bind(this)}> Desassociar Bóia </button>
+                                    {(this.user.role === UserRole.sysAdmin.name  )&&(
+                                      <button onClick={this.handleBuoyRemove.bind(this)}> Desassociar Boia </button>
                                     )}
                                 </div>
                         )
                         }
                         {!tank_data.buoy &&(
-                                <Card url={'/buoys'} title='Boia' msg={"Sem bóia"}/>
+                                <Card url={'/buoys'} title='Boia' msg={"Sem Boia"}/>
                         )
                         }
 
@@ -318,10 +334,13 @@ class Tank extends Component {
                         )
                         }
 
+                        <div className="Title">
+                          <span>Informações em tempo real</span>
+                        </div>
 
                         <div className='Thermometer'>
                             <div className='TitleBar'>
-                                <span className='spanTitle'>Temperatura atual</span>
+                                <span className='spanTitle'>Temperatura</span>
                             </div>
                             <Thermometer
                             theme="light"
@@ -333,6 +352,37 @@ class Tank extends Component {
                             height="200"
                             />
                         </div>
+                        <div className='Card'>
+                            <div className='Card-Title'>
+                                Nível d'Água
+                            </div>
+                            <div className='Card-msg'>
+                                {curWaterLevelLabel}
+                            </div>
+                        </div>
+
+                        <div className='Card'>
+                            <div className='Card-Title'>
+                                Salinidade
+                            </div>
+                            <div className='Card-msg'>
+                                {curSalinity}
+                            </div>
+                        </div>
+
+                        <div className='Card'>
+                            <div className='Card-Title'>
+                                Turbidez
+                            </div>
+                            <div className='Card-msg'>
+                                {curTurbidity}
+                            </div>
+                        </div>
+
+                        <div className="Title">
+                          <span>Graficos em tempo real</span>
+                        </div>
+
                         <div className='Chart-Temperature'>
                             <LineChart
                                 data={
@@ -368,14 +418,6 @@ class Tank extends Component {
                             />
                         </div>
 
-                        <div className='Card'>
-                            <div className='Card-Title'>
-                                Nível d'Água
-                            </div>
-                            <div className='Card-msg'>
-                                {curWaterLevelLabel}
-                            </div>
-                        </div>
                         <div className='Chart-Temperature'>
                             <LineChart
                                 data={
@@ -399,6 +441,43 @@ class Tank extends Component {
                             />
                         </div>
 
+                        <div className='Chart-Temperature'>
+                            <LineChart
+                                data={
+                                    [{
+                                        'name':"Salinidade Normal",
+                                        'data': defaultData.salinity
+                                    },{
+                                        'name':"Salinidade Medida",
+                                        'data': data.salinity
+                                    },{
+                                        'name':'Salinidade Alerta',
+                                        'data': alertDataH.salinity
+                                    },{
+                                        'name':'Salinidade Risco',
+                                        'data': riskDataH.salinity
+                                    },{
+                                        'name':'Salinidade Alerta',
+                                        'data': alertDataL.salinity
+                                    },{
+                                        'name':'Salinidade Risco',
+                                        'data': riskDataL.salinity
+                                    }]}
+                                min={0}
+                                max={salinityMax}
+                                download={true}
+                                xtitle="Hora"
+                                suffix="°/oo"
+                                ytitle="Salinidade (°/oo)"
+                                legend={false}
+                                label="Salinidade"
+                                colors={["#90e2a0", "#90afe2","#ffe284","#d35454","#ffe284","#d35454"]}
+                                curve={false}
+                                pointRadius={0}
+                            />
+                        </div>
+
+
                     </div>
                     <div style={{zIndex:'30'}}>
                       <Modal show={this.state.isModalOpen} onClose={this.toggleModal}>
@@ -410,14 +489,15 @@ class Tank extends Component {
                                   <TextField type='number' label="Nível d'Água Ideal" name="tank_waterLevel" defaultValue={tank_data.waterLevel} onChange={this.handleChange} />
                                   <TextField type='number' label="Salinidade Ideal" name="tank_salinity" defaultValue={tank_data.salinity} onChange={this.handleChange} />
                                   <TextField type='number' label="Turbidez Ideal" name="tank_turbidity" defaultValue={tank_data.turbidity} onChange={this.handleChange} />
-                                  <TextField disabled={!(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )}className='User-select' label="Bóia associada" select value={buoy_associated || 0} name="buoy_associated" onChange={this.handleChange}>
+                                  {this.user.role === UserRole.sysAdmin.name &&(<TextField disabled={!(this.user.role === UserRole.sysAdmin.name )}className='User-select' label="Boia associada" select value={buoy_associated || 0} name="buoy_associated" onChange={this.handleChange}>
                                       {free_buoys.map( buoys => (
                                           <option key={buoys.id} value={buoys.id}>
                                               {buoys.name}
                                           </option>
                                       ))}
                                   </TextField>
-                                  <TextField disabled={!(this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name )} className='User-select' label="Produção associada" select value={prod_associated || 0} name="prod_associated" onChange={this.handleChange}>
+                                  )}
+                                  <TextField disabled={!(this.user.role === UserRole.biologist.name || this.user.role === UserRole.sysAdmin.name || this.user.role === UserRole.manager.name)} className='User-select' label="Produção associada" select value={prod_associated || 0} name="prod_associated" onChange={this.handleChange}>
                                       {prods.map( prod => (
                                           <option key={prod.id} value={prod.id}>
                                               {prod.name}

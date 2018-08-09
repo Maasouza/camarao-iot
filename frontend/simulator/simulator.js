@@ -12,15 +12,16 @@ client.on('message', function(msg){
 	console.log( msg.asObject() );
 });
 
-function randomInt(x,y){
-	return Math.floor((Math.random()*y)+x);
+function randomInt(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 function pub(){
 	out = {
 		'red':  randomInt(1,3000),
-		'green':  randomInt(2000,3000),
-		'blue':  randomInt(2000,3000),
+		'green':  randomInt(1,3000),
+		'blue':  randomInt(1,3000),
 		'temperature': randomInt(10,40),
 		'water_level': randomInt(1,100)%2,
 		'salinity': randomInt(10,30),
