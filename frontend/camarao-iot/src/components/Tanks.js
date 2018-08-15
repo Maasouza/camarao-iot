@@ -8,6 +8,7 @@ import UserRole from '../UserRole'
 import TankContainer from './TankContainer';
 import Modal from './Modal';
 import TextField from '@material-ui/core/TextField';
+import Config from '../config';
 
 import './Dashboard.css';
 
@@ -21,8 +22,8 @@ class Tanks extends Component {
         var client = require('emitter-io').connect();
 
         client.subscribe({
-          key: "Lxdppx1WtAsSHTYWP5c5N-AT5gjR2yyf",
-          channel: "camarao-iot-test"
+          key: Config.EMMITER_KEY,
+          channel: Config.EMMITER_CHANNEL
         });
 
         this.state = {
@@ -31,8 +32,8 @@ class Tanks extends Component {
             tanks_data: [],
             free_buoys: [],
             buoy_associated: 0,
-            emitterKey: 'Lxdppx1WtAsSHTYWP5c5N-AT5gjR2yyf',
-            emitterChannel: 'camarao-iot-test',
+            emitterKey: Config.EMMITER_KEY,
+            emitterChannel: Config.EMMITER_CHANNEL,
             isModalOpen: false
         }
         this.url = '/tanks';

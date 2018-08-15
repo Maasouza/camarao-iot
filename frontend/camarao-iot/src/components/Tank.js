@@ -8,7 +8,8 @@ import Chart from 'chart.js'
 import UserRole from '../UserRole'
 import Modal from './Modal';
 import TextField from '@material-ui/core/TextField';
-import Card from "./Card";
+import Card from './Card';
+import Config from '../config';
 import './Dashboard.css';
 import './Tank.css';
 
@@ -23,8 +24,8 @@ class Tank extends Component {
         var client = require('emitter-io').connect();
 
         client.subscribe({
-          key: "Lxdppx1WtAsSHTYWP5c5N-AT5gjR2yyf",
-          channel: "camarao-iot-test"
+          key: Config.EMMITER_KEY,
+          channel: Config.EMMITER_CHANNEL
         });
 
         this.state = {
@@ -41,8 +42,8 @@ class Tank extends Component {
             tank_data: [],
             buoy_associated: 0,
             prod_associated: 0,
-            emitterKey: 'Lxdppx1WtAsSHTYWP5c5N-AT5gjR2yyf',
-            emitterChannel: 'camarao-iot-test',
+            emitterKey: Config.EMMITER_KEY,
+            emitterChannel: Config.EMMITER_CHANNEL,
             isModalOpen: false
         }
         this.url = '/tanks/'+this.props.match.params.id;
