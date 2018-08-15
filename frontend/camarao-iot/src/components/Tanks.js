@@ -19,21 +19,15 @@ class Tanks extends Component {
         this.handleCreate = this.handleCreate.bind(this);
         this.Auth = new AuthService()
         this.user = this.Auth.getUser()
-        var client = require('emitter-io').connect();
-
-        client.subscribe({
-          key: Config.EMITTER_KEY,
-          channel: Config.EMITTER_CHANNEL
-        });
+        var socket = require('socket.io-client')(Config.SOCKET_URL);
+        socket.emit('subscribe', Config.SOCKET_TIMER)
 
         this.state = {
-            client: client,
+            socket: socket,
             register: {},
             tanks_data: [],
             free_buoys: [],
             buoy_associated: 0,
-            emitterKey: Config.EMITTER_KEY,
-            emitterChannel: Config.EMITTER_CHANNEL,
             isModalOpen: false
         }
         this.url = '/tanks';
@@ -142,8 +136,7 @@ class Tanks extends Component {
     }
 
     componentDidMount() {
-        console.log("Mount")
-        var {client, register} = this.state;
+        var {socket, register} = this.state;
         var info =  undefined;
 
         this.Auth.fetch( this.url , {
@@ -152,8 +145,8 @@ class Tanks extends Component {
         .then(response => {
             this.setState({ tanks_data: response })
         })
-        client.on('message', data => {
-            info = data.asObject()
+        socket.on('message', data => {
+            info = JSON.parse(data)
             console.log("Recebe")
             const res = {
               turbidity: (Math.max(info['red'], info['green'], info['blue']) > 2500) ? 'Alta' : 'Baixa',
@@ -164,6 +157,10 @@ class Tanks extends Component {
             register[info['buoy_id']] = res;
             this.setState({register})
           });
+    }
+
+    componentWillUnmount() {
+
     }
 }
 
