@@ -45,7 +45,7 @@ config ={
 
 io.on('connection', (client) => {
   client.on('subscribe', (interval) => {
-    console.log('client is subscribing with interval ', interval);
+    console.log('client '+client.id+' is subscribing with interval ', interval);
     setInterval(() => {
       n_buoys = 5
       for(var id=1 ; id< n_buoys+1 ; id++)
@@ -95,6 +95,9 @@ io.on('connection', (client) => {
         client.emit('message', JSON.stringify(out));
       }
     }, interval);
+  });
+  client.on('disconnect', ()=>{
+    console.log('Client '+client.id +' disconnected');
   });
 });
 
