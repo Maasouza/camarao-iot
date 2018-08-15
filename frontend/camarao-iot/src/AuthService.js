@@ -1,9 +1,10 @@
 import decode from 'jwt-decode';
+import Config from './ProjectConfig';
 
 export default class AuthService {
     // Initializing important variables
     constructor(domain) {
-        this.domain = domain || 'http://127.0.0.1:5000' // API server domain
+        this.domain = domain || Config.SERVER_URL // API server domain
         this.fetch = this.fetch.bind(this) // React binding stuff
         this.login = this.login.bind(this)
         this.isAuthenticated = this.isAuthenticated.bind(this)

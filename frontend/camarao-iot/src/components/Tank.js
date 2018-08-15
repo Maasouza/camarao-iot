@@ -9,7 +9,7 @@ import UserRole from '../UserRole'
 import Modal from './Modal';
 import TextField from '@material-ui/core/TextField';
 import Card from './Card';
-import Config from '../config';
+import Config from '../ProjectConfig';
 import './Dashboard.css';
 import './Tank.css';
 
@@ -24,8 +24,8 @@ class Tank extends Component {
         var client = require('emitter-io').connect();
 
         client.subscribe({
-          key: Config.EMMITER_KEY,
-          channel: Config.EMMITER_CHANNEL
+          key: Config.EMITTER_KEY,
+          channel: Config.EMITTER_CHANNEL
         });
 
         this.state = {
@@ -42,8 +42,8 @@ class Tank extends Component {
             tank_data: [],
             buoy_associated: 0,
             prod_associated: 0,
-            emitterKey: Config.EMMITER_KEY,
-            emitterChannel: Config.EMMITER_CHANNEL,
+            emitterKey: Config.EMITTER_KEY,
+            emitterChannel: Config.EMITTER_CHANNEL,
             isModalOpen: false
         }
         this.url = '/tanks/'+this.props.match.params.id;
