@@ -21,15 +21,11 @@ class Tank extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.Auth = new AuthService()
         this.user = this.Auth.getUser()
-        var client = require('emitter-io').connect();
-
-        client.subscribe({
-          key: Config.EMITTER_KEY,
-          channel: Config.EMITTER_CHANNEL
-        });
+        var socket = require('socket.io-client')(Config.SOCKET_URL);
+        socket.emit('subscribe', Config.SOCKET_UPDATE_TIMER)
 
         this.state = {
-            client: client,
+            socket: socket,
             data: {
               samples:0,
               temperature:[],
@@ -42,8 +38,6 @@ class Tank extends Component {
             tank_data: [],
             buoy_associated: 0,
             prod_associated: 0,
-            emitterKey: Config.EMITTER_KEY,
-            emitterChannel: Config.EMITTER_CHANNEL,
             isModalOpen: false
         }
         this.url = '/tanks/'+this.props.match.params.id;
@@ -541,10 +535,10 @@ class Tank extends Component {
               })
         })
 
-        var {client} = this.state;
-        client.on('message', msg => {
+        var {socket} = this.state;
+        socket.on('message', msg => {
             var {buoy_associated, data} = this.state
-            var info = msg.asObject()
+            var info = JSON.parse(msg)
             var curTime = new Date()
             if(info.buoy_id === buoy_associated){
               data.temperature.push([curTime, info.temperature])
@@ -565,6 +559,11 @@ class Tank extends Component {
 
             this.setState({data})
         });
+    }
+
+    componentWillUnmount() {
+        var {socket} = this.state;
+        socket.emit('disconnect');
     }
 }
 
