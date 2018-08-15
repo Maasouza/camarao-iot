@@ -20,7 +20,7 @@ class Tanks extends Component {
         this.Auth = new AuthService()
         this.user = this.Auth.getUser()
         var socket = require('socket.io-client')(Config.SOCKET_URL);
-        socket.emit('subscribe', Config.SOCKET_TIMER)
+        socket.emit('subscribe', Config.SOCKET_UPDATE_TIMER)
 
         this.state = {
             socket: socket,
@@ -160,7 +160,8 @@ class Tanks extends Component {
     }
 
     componentWillUnmount() {
-
+        var {socket} = this.state;
+        socket.emit('disconnect');
     }
 }
 
