@@ -180,7 +180,7 @@ class Mytable extends Component {
                             <legend>{this.state.view?(" Produção "+selected_item.name+" "):(" Editar Produção "+selected_item.name+" ")}</legend>
                             <form>
                                 <TextField disabled label="Nome" name="prod_name" defaultValue={selected_item.name} onChange={this.handleChange} />
-                                <TextField disabled label="Cliente" disabled name="prod_client" defaultValue={selected_item.client} onChange={this.handleChange} />
+                                <TextField disabled label="Cliente" name="prod_client" defaultValue={selected_item.client} onChange={this.handleChange} />
                                 <TextField disabled={this.state.view} label="Classe do Camarão" name="prod_shrimpClass" defaultValue={selected_item.shrimpClass} onChange={this.handleChange} />
                                 <TextField disabled={this.state.view} type='number'label="Quantidade de camarão requerida (Kg)" name="prod_requestedAmount" defaultValue={selected_item.requestedAmount} onChange={this.handleChange} />
                                 <TextField disabled type='number'label="Quantidade de camarão atual estimada (Kg)" name="prod_estimatedAmount" defaultValue={selected_item.estimatedAmount} onChange={this.handleChange} />
