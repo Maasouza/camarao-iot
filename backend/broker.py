@@ -9,7 +9,7 @@ class Broker:
     def __init__(self):
         # key valid for 1 month
         #self.__key = "LvNI43Y9DUdVd6GIOIb6dFjqN0Don6L_"
-        self.__key = "Lxdppx1WtAsSHTYWP5c5N-AT5gjR2yyf"
+        self.__key = "_Rgpfd3PVxLrjKlQ0-g3DbYHDGnq51WJ"
         #self.__channel = "camarao-iot"
         self.__channel = "camarao-iot-test"
 

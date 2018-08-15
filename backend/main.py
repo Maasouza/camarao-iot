@@ -28,8 +28,8 @@ def seed_database():
 
 if __name__ == '__main__':
     try:
-        # broker.start()
-        # broker.subscribe()
+        #broker.start()
+        #broker.subscribe()
         app.run(host='0.0.0.0')
         # time.sleep(1)
         raise Exception('forced exception')
