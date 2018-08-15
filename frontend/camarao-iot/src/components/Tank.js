@@ -266,8 +266,8 @@ class Tank extends Component {
                                             <td>Turbidez</td>
                                         </tr>
                                         <tr>
-                                            <td><span >{tank_data.temperature}</span></td>
-                                            <td><span >{tank_data.waterLevel}</span></td>
+                                            <td><span >{tank_data.temperature} °C</span></td>
+                                            <td><span >{tank_data.waterLevel} L</span></td>
                                             <td><span >{tank_data.salinity}</span></td>
                                             <td><span >{tank_data.turbidity}</span></td>
                                         </tr>
