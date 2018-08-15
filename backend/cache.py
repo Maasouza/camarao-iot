@@ -47,5 +47,5 @@ class Cache(Thread):
         pickle.dump(self.__list, open(self.__filename, "wb"))
 
 
-cache = Cache(10, "records_cache.p")
-cache.start()
+# cache = Cache(10, "records_cache.p")
+# cache.start()
