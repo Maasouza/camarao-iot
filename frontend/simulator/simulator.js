@@ -50,14 +50,14 @@ io.on('connection', (client) => {
       n_buoys = 5
       for(var id=1 ; id< n_buoys+1 ; id++)
       {
-        if(Math.random()<0.6){
+        if(Math.random()<0.2){
           x = -1
-          if(Math.random()<0.5){
+          if(Math.random()<0.51){
             x = 1
           }
           config[id].t += x*Math.random().toFixed(2)
         }
-        if(Math.random()<0.6){
+        if(Math.random()<0.2){
           x = -1
           if(Math.random()<0.5){
             x = 1
@@ -71,7 +71,7 @@ io.on('connection', (client) => {
           config[id].n = 1
         }
 
-        if(Math.random()<0.15){
+        if(Math.random()<0.95){
           config[id].r = 2501
           config[id].g = 2501
           config[id].b = 2501
