@@ -149,3 +149,8 @@ a{
 a:visited{
   color:#43425d;
 }
+
+.about{
+  position: relative;
+  bottom: 0px;
+}

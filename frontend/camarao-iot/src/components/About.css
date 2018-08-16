@@ -1,0 +1,11 @@
+body{
+  font-family: Open Sans;
+  font-size: 18px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.Devs{
+  text-align: justify;
+  width: 80%;
+  margin:30px auto;
+}

@@ -40,7 +40,8 @@ class Login extends Component {
                         />
                     </form>
                     <br/>
-                    <Link to={'/recovery'} activeclassname="Link-recovery"> Esqueceu sua senha?</Link>
+                    <Link to={'/recovery'} activeclassname="Link-recovery"> Esqueceu sua senha?</Link><br/><br/><br/>
+                    <Link to={'/about'} className='about' activeclassname="Link-about"> Sobre o Camarão IoT</Link>
                 </div>
             </div>
           </div>
