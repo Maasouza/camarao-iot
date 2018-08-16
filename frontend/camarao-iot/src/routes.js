@@ -12,6 +12,7 @@ import Temporal from './components/Temporal'
 import Productions from './components/Productions'
 import Buoys from './components/Buoys'
 import Settings from './components/Settings'
+import About from './components/About'
 
 const Auth = new AuthService();
 
@@ -33,6 +34,7 @@ const Routes = () => (
     <Switch>
         <Route exact path='/login' component={Login} />
         <Route exact path='/recovery' component={Recovery} />
+        <Route exact path='/about' component={About} />
         <PrivateRoute exact path='/tanks' component={Tanks} />
         <PrivateRoute exact path='/tanks/:id' component={Tank} />
         <PrivateRoute exact path='/temporal' component={Temporal} />

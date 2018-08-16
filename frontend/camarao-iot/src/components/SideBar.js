@@ -11,6 +11,7 @@ import {ic_history} from 'react-icons-kit/md/ic_history'
 import {users} from 'react-icons-kit/icomoon/users'
 import {lifebuoy} from 'react-icons-kit/icomoon/lifebuoy'
 import {thermometer} from 'react-icons-kit/entypo/thermometer'
+import {ic_info} from 'react-icons-kit/md/ic_info'
 
 const SeparatorTitle = props => {
   return (
@@ -59,6 +60,10 @@ class Sidebar extends React.Component{
             <span className={this.props.settings || ''} onClick={this.handleClick.bind(this,'/settings')}>
               <SvgIcon className="Nav-icon"size={20} icon={ic_settings}/>
               Configurações
+            </span>
+            <span className={this.props.about || ''} onClick={this.handleClick.bind(this,'/about')}>
+              <SvgIcon className="Nav-icon"size={20} icon={ic_info}/>
+              Sobre
             </span>
           </div>
         )
